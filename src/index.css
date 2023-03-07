@@ -30,6 +30,11 @@ td {
   padding: 0.8rem 1.2rem;
 }
 
+form {
+  display: flex;
+  flex-direction: column;
+}
+
 a {
   font-weight: 500;
   color: #646cff;

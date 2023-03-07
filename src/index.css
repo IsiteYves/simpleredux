@@ -20,6 +20,11 @@ table * {
   border-collapse: collapse;
 }
 
+th {
+  user-select: none;
+  cursor: pointer;
+}
+
 table th,
 td {
   padding: 0.8rem 1.2rem;

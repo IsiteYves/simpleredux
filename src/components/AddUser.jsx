@@ -21,7 +21,6 @@ const AddUser = () => {
         age: "",
         email: "",
       });
-      alert("Created user successfully");
       navigate("/");
     } catch (e) {
       alert(e.message);

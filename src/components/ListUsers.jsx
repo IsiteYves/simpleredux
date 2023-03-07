@@ -7,6 +7,8 @@ function ListUsers() {
   const [sortBy, setSortBy] = useState(["name", "asc"]);
   const users = useSelector((state) => state.users.users);
   const [displayedUsers, setDisplayedUsers] = useState([]);
+  const [filteredUsers, setFilteredUsers] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
 
   const sortUsersAsc = (property) => {
     const arr = displayedUsers.length === 0 ? users : displayedUsers;
@@ -49,6 +51,15 @@ function ListUsers() {
     setDisplayedUsers(users.slice(5 * (newPageNumber - 1), newPageNumber * 5));
   };
 
+  const searchUsers = (query) => {
+    const filteredUsers = users.filter((user) =>
+      Object.values(user).some((value) =>
+        value.toString().toLowerCase().includes(query.toLowerCase())
+      )
+    );
+    setFilteredUsers(filteredUsers);
+  };
+
   useEffect(() => {
     setDisplayedUsers(users.slice(0, 5));
   }, []);
@@ -60,6 +71,17 @@ function ListUsers() {
   return (
     <div>
       <Link to="add">Add User</Link>
+      <input
+        type="text"
+        name="search"
+        id="search"
+        placeholder="Search by name, age or email..."
+        value={searchQuery}
+        onChange={(e) => {
+          setSearchQuery(e.target.value);
+          searchUsers(e.target.value);
+        }}
+      />
       <table>
         <thead>
           <tr>
@@ -83,13 +105,31 @@ function ListUsers() {
           </tr>
         </thead>
         <tbody>
-          {displayedUsers.map((user, i) => (
-            <tr key={i}>
-              <td>{user.name}</td>
-              <td>{user.age}</td>
-              <td>{user.email}</td>
-            </tr>
-          ))}
+          {searchQuery ? (
+            filteredUsers.length > 0 ? (
+              filteredUsers.map((user, i) => (
+                <tr key={i}>
+                  <td>{user.name}</td>
+                  <td>{user.age}</td>
+                  <td>{user.email}</td>
+                </tr>
+              ))
+            ) : (
+              <p
+                style={{ border: "none", marginLeft: "1rem", color: "orange" }}
+              >
+                No results match your search.
+              </p>
+            )
+          ) : (
+            users.map((user, i) => (
+              <tr key={i}>
+                <td>{user.name}</td>
+                <td>{user.age}</td>
+                <td>{user.email}</td>
+              </tr>
+            ))
+          )}
         </tbody>
       </table>
       <Pagination

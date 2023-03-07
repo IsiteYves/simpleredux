@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { saveNewUser } from "../../saveNewUser";
+import { useDispatch } from "react-redux";
+// import { saveNewUser } from "../../saveNewUser";
+import { addUser } from "../slices/UsersSlice";
 
 const AddUser = () => {
   const [formData, setFormData] = useState({
@@ -8,11 +10,12 @@ const AddUser = () => {
     age: "",
     email: "",
   });
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleSubmit = (e) => {
     try {
       e.preventDefault();
-      saveNewUser(formData);
+      dispatch(addUser(formData));
       setFormData({
         name: "",
         age: "",

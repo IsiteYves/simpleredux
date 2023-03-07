@@ -12,9 +12,12 @@ export const usersSlice = createSlice({
     getUsers: (state) => {
       return state.users;
     },
+    addUser: (state, action) => {
+      state.users.push(action.payload);
+    },
   },
 });
 
-export const { getUsers } = usersSlice.actions;
+export const { getUsers, addUser } = usersSlice.actions;
 
 export default usersSlice.reducer;

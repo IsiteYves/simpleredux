@@ -5,19 +5,16 @@ const initialState = {
   users,
 };
 
-export const counterSlice = createSlice({
+export const usersSlice = createSlice({
   name: "users",
   initialState,
   reducers: {
     getUsers: (state) => {
       return state.users;
     },
-    decrement: (state) => {
-      state.value -= 1;
-    },
   },
 });
 
-export const { increment, decrement, incrementByAmount } = counterSlice.actions;
+export const { getUsers } = usersSlice.actions;
 
-export default counterSlice.reducer;
+export default usersSlice.reducer;

@@ -4,24 +4,7 @@ import { Link } from "react-router-dom";
 
 function ListUsers() {
   const dispatch = useDispatch();
-  //   const users1 = useSelector((state) => state.users);
-  const users = [
-    {
-      name: "John Doe",
-      age: 32,
-      email: "john@gmail.com",
-    },
-    {
-      name: "John Doe",
-      age: 32,
-      email: "john@gmail.com",
-    },
-    {
-      name: "John Doe",
-      age: 32,
-      email: "john@gmail.com",
-    },
-  ];
+  const users = useSelector((state) => state.users.users);
   return (
     <div>
       <Link to="add">Add User</Link>
